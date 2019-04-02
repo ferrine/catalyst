@@ -156,7 +156,7 @@ def main(args, unknown_args):
         processes.append(p)
         sampler_id += 1
 
-    for i in range(1, args._train + 1):
+    for i in range(1, args.train + 1):
         params_ = dict(
             vis=False,
             infer=False,

@@ -44,18 +44,11 @@ class Sampler:
         set_global_seed(self._seed)
         self._sampler_id = id
 
-        # logging
-        self._prepare_logger(logdir, mode)
-
-        # synchronization configuration
-        self.db_server = db_server
-        self.weights_sync_period = weights_sync_period
-        self.episode_limit = episode_limit or _BIG_NUM
-        self._force_store = force_store
-
-        # other
         self._infer = mode == "infer"
         self.seeds = seeds
+
+        # logging
+        self._prepare_logger(logdir, mode)
 
         # environment, model, exploration & action handlers
         self.env = env
@@ -70,6 +63,11 @@ class Sampler:
             deterministic=self._infer
         )
 
+        # synchronization configuration
+        self.db_server = db_server
+        self.weights_sync_period = weights_sync_period
+        self.episode_limit = episode_limit or _BIG_NUM
+        self._force_store = force_store
         self._sampler_weight_mode = \
             "critic" if env.discrete_actions else "actor"
 
